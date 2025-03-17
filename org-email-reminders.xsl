@@ -22,7 +22,10 @@
             <th style="width: 33%; border: 1px solid #ddd; padding: 10px; text-align: left; background-color: #f4f4f4;">Days Left</th>
 	    <th style="width: 33%; border: 1px solid #ddd; padding: 10px; text-align: left; background-color: #f4f4f4;">Date</th>
           </tr>
-	  <xsl:apply-templates select="//org:headline[@todo-keyword='TODO']/org:deadline">
+	  <xsl:apply-templates select="//org:headline[@todo-keyword='TODO']/org:deadline |                                                                                                                                                                
+                                       //org:headline[@todo-keyword='REPEAT']/org:deadline |                                                                                                                                       
+                                       //org:headline[@todo-keyword='NOTES']/org:deadline |                                                                                                                                        
+                                       //org:headline[@todo-keyword='WAITING']/org:deadline ">
             <xsl:sort select="xs:date(concat(org:timestamp/@year-start, '-', 
                               format-number(org:timestamp/@month-start, '00'), '-', 
                               format-number(org:timestamp/@day-start, '00')))" 
@@ -33,9 +36,9 @@
     </html>
   </xsl:template>
   <!-- Note these draw from custom keywords by the author -->
-  <xsl:template match="org:headline[@todo-keyword='TODO']/org:deadline or
-                       org:headline[@todo-keyword='REPEAT']/org:deadline or
-                       org:headline[@todo-keyword='NOTES']/org:deadline or
+  <xsl:template match="org:headline[@todo-keyword='TODO']/org:deadline |
+                       org:headline[@todo-keyword='REPEAT']/org:deadline |
+                       org:headline[@todo-keyword='NOTES']/org:deadline |
                        org:headline[@todo-keyword='WAITING']/org:deadline">
     <xsl:variable name="month" select="format-number(org:timestamp/@month-start, '00')"/>
     <xsl:variable name="day" select="format-number(org:timestamp/@day-start, '00')"/>
