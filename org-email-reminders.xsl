@@ -105,4 +105,9 @@
       </tr>
     </xsl:if>
   </xsl:template>
+  <xsl:template match="org:headline/org:link">
+    <a href="{@raw-link}">
+      <xsl:value-of select="."/>
+    </a>
+  </xsl:template>
 </xsl:stylesheet>
